@@ -1,1530 +1,757 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Happy Birthday, Sayangku 💙</title>
-
-    <meta name="description" content="A special birthday website made with love.">
-    <meta name="theme-color" content="#0f172a">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --blue: #2563eb;
-            --blue-light: #60a5fa;
-            --cyan: #22d3ee;
-            --dark: #0f172a;
-            --dark-2: #111827;
-            --gray: #64748b;
-            --light: #f8fafc;
-            --white: #ffffff;
-            --pink: #f472b6;
-            --border: rgba(255,255,255,.12);
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(37,99,235,.18), transparent 35%),
-                radial-gradient(circle at bottom right, rgba(34,211,238,.12), transparent 35%),
-                var(--dark);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-        /* =========================
-           LOVE GATE / QR
-        ========================= */
-
-        #loveGate {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(37,99,235,.25), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(244,114,182,.15), transparent 30%),
-                #020617;
-            transition: .8s ease;
-        }
-
-        #loveGate.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .gate-card {
-            width: min(440px, 100%);
-            text-align: center;
-            padding: 35px 25px;
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 30px;
-            background: rgba(255,255,255,.06);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 30px 80px rgba(0,0,0,.5);
-        }
-
-        .eyebrow {
-            display: inline-block;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--blue-light);
-            margin-bottom: 12px;
-        }
-
-        .gate-card h1 {
-            font-size: clamp(42px, 10vw, 68px);
-            line-height: 1;
-            margin-bottom: 18px;
-        }
-
-        .gate-card h1 span {
-            color: var(--blue-light);
-        }
-
-        .gate-card p {
-            color: #cbd5e1;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .qr-box {
-            width: 230px;
-            height: 230px;
-            padding: 15px;
-            margin: 25px auto 15px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #qrcode {
-            width: 200px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #qrcode img,
-        #qrcode canvas {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .scan {
-            font-weight: bold;
-            color: white;
-            font-size: 15px;
-        }
-
-        .hint {
-            margin-top: 8px !important;
-            margin-bottom: 0 !important;
-            color: #94a3b8 !important;
-            font-size: 12px !important;
-        }
-
-        .gate-heart {
-            color: var(--pink);
-            font-size: 24px;
-            margin-top: 18px;
-            letter-spacing: 8px;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 16px 5%;
-            background: rgba(2,6,23,.72);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255,255,255,.07);
-        }
-
-        .nav-inner {
-            max-width: 1150px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .logo {
-            font-weight: 800;
-            color: white;
-            font-size: 18px;
-        }
-
-        .logo span {
-            color: var(--blue-light);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        nav ul a {
-            color: #cbd5e1;
-            font-size: 13px;
-            transition: .3s;
-        }
-
-        nav ul a:hover {
-            color: white;
-        }
-
-        .music-btn {
-            border: 1px solid rgba(255,255,255,.15);
-            background: rgba(255,255,255,.07);
-            color: white;
-            padding: 9px 15px;
-            border-radius: 100px;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .music-btn:hover {
-            background: rgba(37,99,235,.3);
-        }
-
-        /* =========================
-           GENERAL
-        ========================= */
-
-        section {
-            padding: 110px 5%;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .section-label {
-            display: block;
-            color: var(--blue-light);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .section-title {
-            font-size: clamp(32px, 6vw, 50px);
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-
-        .section-desc {
-            color: #94a3b8;
-            max-width: 650px;
-            margin-bottom: 40px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 13px 20px;
-            border-radius: 100px;
-            font-weight: bold;
-            font-size: 13px;
-            transition: .3s;
-            margin: 5px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--blue), #1d4ed8);
-            color: white;
-            box-shadow: 0 10px 30px rgba(37,99,235,.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-        }
-
-        .btn-outline {
-            border: 1px solid rgba(255,255,255,.18);
-            color: white;
-            background: rgba(255,255,255,.04);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255,255,255,.1);
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        #home {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 140px;
-        }
-
-        .hero {
-            max-width: 1100px;
-            width: 100%;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1.05fr .95fr;
-            gap: 70px;
-            align-items: center;
-        }
-
-        .hero-label {
-            display: inline-block;
-            color: var(--blue-light);
-            border: 1px solid rgba(96,165,250,.25);
-            background: rgba(37,99,235,.08);
-            border-radius: 100px;
-            padding: 7px 13px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .hero h2 {
-            font-size: clamp(45px, 7vw, 80px);
-            line-height: .98;
-            letter-spacing: -3px;
-            margin-bottom: 25px;
-        }
-
-        .hero h2 span {
-            color: var(--blue-light);
-        }
-
-        .hero-text {
-            color: #94a3b8;
-            max-width: 570px;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-
-        .hero-photo-wrap {
-            position: relative;
-        }
-
-        .hero-photo-wrap::before {
-            content: "";
-            position: absolute;
-            inset: -20px;
-            border: 1px solid rgba(96,165,250,.15);
-            border-radius: 35px;
-            transform: rotate(4deg);
-        }
-
-        .hero-photo {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4/5;
-            object-fit: cover;
-            border-radius: 30px;
-            display: block;
-            box-shadow: 0 30px 70px rgba(0,0,0,.45);
-            border: 1px solid rgba(255,255,255,.1);
-        }
-
-        .floating-love {
-            position: absolute;
-            right: -20px;
-            bottom: 25px;
-            padding: 15px 18px;
-            border-radius: 18px;
-            background: rgba(15,23,42,.85);
-            border: 1px solid rgba(255,255,255,.12);
-            backdrop-filter: blur(15px);
-            font-size: 13px;
-        }
-
-        /* =========================
-           LETTER
-        ========================= */
-
-        .letter-wrap {
-            display: grid;
-            grid-template-columns: .8fr 1.2fr;
-            gap: 35px;
-        }
-
-        .glass-card {
-            border: 1px solid rgba(255,255,255,.09);
-            background: rgba(255,255,255,.045);
-            border-radius: 28px;
-            padding: 30px;
-            backdrop-filter: blur(12px);
-        }
-
-        .letter-intro {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .letter-intro .big-heart {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .letter-content p {
-            color: #cbd5e1;
-            margin-bottom: 18px;
-            font-size: 14px;
-        }
-
-        .sign {
-            margin-top: 30px;
-            color: var(--blue-light);
-            font-weight: bold;
-        }
-
-        .audio-box {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,.1);
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 12px;
-        }
-
-        /* =========================
-           GALLERY
-        ========================= */
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .photo-card {
-            overflow: hidden;
-            border-radius: 22px;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(255,255,255,.08);
-            cursor: pointer;
-            transition: .35s;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(96,165,250,.4);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-            transition: .5s;
-        }
-
-        .photo-card:hover img {
-            transform: scale(1.04);
-        }
-
-        .caption {
-            padding: 16px;
-        }
-
-        .caption strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .caption span {
-            display: block;
-            color: #94a3b8;
-            font-size: 12px;
-        }
-
-        /* =========================
-           STORY
-        ========================= */
-
-        .timeline {
-            max-width: 750px;
-            margin: 50px auto 0;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 10px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(var(--blue), transparent);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 45px;
-            margin-bottom: 35px;
-        }
-
-        .dot {
-            position: absolute;
-            left: 4px;
-            top: 8px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: var(--blue-light);
-            box-shadow: 0 0 0 6px rgba(96,165,250,.1);
-        }
-
-        .timeline-card {
-            padding: 25px;
-            border-radius: 22px;
-            background: rgba(255,255,255,.045);
-            border: 1px solid rgba(255,255,255,.08);
-        }
-
-        .timeline-card small {
-            color: var(--blue-light);
-        }
-
-        .timeline-card h4 {
-            margin: 5px 0 8px;
-            font-size: 20px;
-        }
-
-        .timeline-card p {
-            color: #94a3b8;
-            font-size: 14px;
-        }
-
-        /* =========================
-           COUNTDOWN
-        ========================= */
-
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 750px;
-            margin: 40px auto;
-        }
-
-        .count-box {
-            text-align: center;
-            padding: 25px 15px;
-            border-radius: 22px;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(255,255,255,.08);
-        }
-
-        .count-box strong {
-            display: block;
-            font-size: clamp(30px, 6vw, 55px);
-            line-height: 1;
-            color: var(--blue-light);
-        }
-
-        .count-box span {
-            color: #94a3b8;
-            font-size: 12px;
-        }
-
-        #birthdayMessage {
-            display: none;
-            text-align: center;
-            color: var(--blue-light);
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        /* =========================
-           GIFT
-        ========================= */
-
-        .gift-area {
-            text-align: center;
-        }
-
-        .gift-box {
-            width: 150px;
-            height: 150px;
-            margin: 40px auto;
-            position: relative;
-            cursor: pointer;
-            animation: floatGift 2.5s ease-in-out infinite;
-        }
-
-        .gift-body {
-            position: absolute;
-            left: 15px;
-            right: 15px;
-            bottom: 5px;
-            height: 95px;
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(37,99,235,.3);
-        }
-
-        .gift-lid {
-            position: absolute;
-            left: 5px;
-            right: 5px;
-            top: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #60a5fa, #2563eb);
-            border-radius: 8px;
-            z-index: 2;
-        }
-
-        .gift-ribbon-v {
-            position: absolute;
-            width: 24px;
-            top: 35px;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #f472b6;
-            z-index: 3;
-        }
-
-        .gift-ribbon-h {
-            position: absolute;
-            left: 5px;
-            right: 5px;
-            top: 43px;
-            height: 17px;
-            background: #f472b6;
-            z-index: 4;
-        }
-
-        .bow {
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            width: 60px;
-            height: 35px;
-            transform: translateX(-50%);
-        }
-
-        .bow::before,
-        .bow::after {
-            content: "";
-            position: absolute;
-            width: 32px;
-            height: 28px;
-            border: 8px solid #f472b6;
-            border-radius: 50%;
-            top: 0;
-        }
-
-        .bow::before {
-            left: -4px;
-            transform: rotate(-25deg);
-        }
-
-        .bow::after {
-            right: -4px;
-            transform: rotate(25deg);
-        }
-
-        @keyframes floatGift {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .surprise {
-            display: none;
-            max-width: 700px;
-            margin: 20px auto;
-            text-align: left;
-            padding: 30px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, rgba(37,99,235,.16), rgba(244,114,182,.08));
-            border: 1px solid rgba(96,165,250,.2);
-            animation: appear .6s ease;
-        }
-
-        .surprise.show {
-            display: block;
-        }
-
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .love {
-            color: #93c5fd !important;
-            font-weight: bold;
-            text-align: center;
-            font-size: 18px !important;
-            margin-top: 25px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            padding: 50px 5%;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,.08);
-            color: #64748b;
-        }
-
-        footer strong {
-            color: #cbd5e1;
-        }
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.88);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-inner {
-            position: relative;
-            max-width: 900px;
-            max-height: 90vh;
-        }
-
-        .modal-inner img {
-            max-width: 100%;
-            max-height: 85vh;
-            border-radius: 20px;
-            display: block;
-        }
-
-        .close {
-            position: absolute;
-            right: -10px;
-            top: -45px;
-            width: 40px;
-            height: 40px;
-            border: 0;
-            border-radius: 50%;
-            background: white;
-            color: black;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        /* =========================
-           HEART PARTICLES
-        ========================= */
-
-        .heart {
-            position: fixed;
-            bottom: -30px;
-            pointer-events: none;
-            animation: heartUp linear forwards;
-            z-index: 999;
-        }
-
-        @keyframes heartUp {
-            to {
-                transform: translateY(-110vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 850px) {
-
-            nav ul {
-                display: none;
-            }
-
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 45px;
-            }
-
-            .hero-photo-wrap {
-                max-width: 500px;
-                margin: auto;
-            }
-
-            .letter-wrap {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 560px) {
-
-            section {
-                padding: 85px 20px;
-            }
-
-            nav {
-                padding: 14px 20px;
-            }
-
-            .hero h2 {
-                font-size: 48px;
-            }
-
-            .hero-photo {
-                aspect-ratio: 1/1.15;
-            }
-
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .photo-card img {
-                height: 330px;
-            }
-
-            .countdown {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .glass-card {
-                padding: 22px;
-            }
-
-            .gate-card {
-                padding: 28px 18px;
-            }
-
-            .qr-box {
-                width: 210px;
-                height: 210px;
-            }
-
-            #qrcode {
-                width: 180px;
-                height: 180px;
-            }
-
-            .floating-love {
-                right: 5px;
-                bottom: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Sayangku 💙</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eaf6ff, #d9edff, #f8fcff);
+    color: #17324d;
+    line-height: 1.7;
+}
+
+section {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+}
+
+/* NAVBAR */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #1670b8;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #315a78;
+    font-size: 14px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.primary {
+    background: #1670b8;
+    color: white;
+}
+
+.outline {
+    border: 2px solid #1670b8;
+    color: #1670b8;
+    background: white;
+}
+
+/* HERO */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-grid {
+    width: 100%;
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.label {
+    color: #1670b8;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 7vw, 80px);
+    line-height: 1;
+    margin: 15px 0;
+}
+
+.hero h2 {
+    font-size: clamp(35px, 5vw, 58px);
+    line-height: 1.1;
+}
+
+.hero h2 span {
+    color: #1670b8;
+}
+
+.hero p {
+    color: #54718a;
+    margin: 20px 0;
+}
+
+.hero-photo {
+    width: 100%;
+    max-width: 470px;
+    height: 570px;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 8px solid rgba(255,255,255,0.8);
+    box-shadow: 0 25px 60px rgba(14,92,150,0.22);
+}
+
+/* HEAD */
+.section-head {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.section-head small {
+    color: #1670b8;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.section-head h2 {
+    font-size: 45px;
+    margin: 10px 0;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.9);
+    padding: 35px;
+    border-radius: 28px;
+    box-shadow: 0 15px 45px rgba(30,100,150,0.12);
+}
+
+.letter p {
+    margin-bottom: 18px;
+    color: #4c687e;
+}
+
+.sign {
+    color: #1670b8;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+/* MUSIC */
+.music-card {
+    text-align: center;
+}
+
+audio {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 15px;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(20,90,140,0.12);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-text {
+    padding: 15px;
+}
+
+.gallery-text strong {
+    display: block;
+    color: #1b5278;
+}
+
+.gallery-text span {
+    font-size: 13px;
+    color: #6a8498;
+}
+
+/* TIMELINE */
+.timeline {
+    max-width: 800px;
+    margin: auto;
+}
+
+.timeline-item {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(30,100,150,0.1);
+}
+
+.timeline-item h3 {
+    color: #1670b8;
+    margin-bottom: 8px;
+}
+
+/* COUNTDOWN */
+.countdown {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+.count-box {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(30,100,150,0.1);
+}
+
+.count-box strong {
+    display: block;
+    color: #1670b8;
+    font-size: 40px;
+}
+
+.count-box span {
+    font-size: 12px;
+    color: #68859a;
+    text-transform: uppercase;
+}
+
+/* GIFT */
+.gift {
+    text-align: center;
+}
+
+.gift-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: none;
+    background: #1670b8;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(22,112,184,0.3);
+}
+
+.surprise {
+    display: none;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.surprise.show {
+    display: block;
+}
+
+.love {
+    text-align: center;
+    color: #1670b8;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* MODAL FOTO */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 20px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 35px;
+    color: #648198;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px) {
+
+    nav ul {
+        display: none;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-photo {
+        margin: auto;
+        height: 450px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width:550px) {
+
+    section {
+        padding: 60px 15px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .countdown {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .card {
+        padding: 25px 20px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- =====================================================
-         LOVE GATE
-         QR CODE TIDAK BISA DIKLIK
-         ===================================================== -->
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-container">
 
-    <div id="loveGate">
+        <div class="logo">
+            for you 💙
+        </div>
 
-        <div class="gate-card">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#surat">Surat</a></li>
+            <li><a href="#gallery">Kenangan</a></li>
+            <li><a href="#cerita">Cerita</a></li>
+            <li><a href="#kejutan">Kejutan</a></li>
+        </ul>
 
-            <div class="eyebrow">
-                private love access
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-grid">
+
+        <div>
+
+            <div class="label">
+                special birthday for you
             </div>
 
-            <h1>
-                Love <span>Code</span>
-            </h1>
+            <h2>
+                Happy Birthday,
+                <br>
+                <span>Sayangku Cintaku 💙</span>
+            </h2>
 
             <p>
-                ada sesuatu yang aku siapkan khusus untuk kamu.
-                tapi kamu harus menemukan jalan masuknya dulu... 💙
+                hari ini bukan hanya tentang bertambahnya usia kamu,
+                tapi tentang merayakan betapa berartinya kamu dalam hidupku.
             </p>
 
-            <div class="qr-box">
-                <div id="qrcode"></div>
-            </div>
+            <a href="#surat" class="btn primary">
+                💌 Baca Surat
+            </a>
 
-            <div class="scan">
-                📱 Scan QR Code Ini
-            </div>
-
-            <p class="hint">
-                jangan klik — scan menggunakan kamera HP.
-            </p>
-
-            <div class="gate-heart">
-                ♡ 💙 ♡
-            </div>
+            <a href="#gallery" class="btn outline">
+                📸 Lihat Kenangan
+            </a>
 
         </div>
 
-    </div>
 
-
-    <!-- =====================================================
-         NAVIGATION
-         ===================================================== -->
-
-    <nav>
-
-        <div class="nav-inner">
-
-            <div class="logo">
-                for <span>you</span> 💙
-            </div>
-
-            <ul>
-
-                <li>
-                    <a href="#home">Home</a>
-                </li>
-
-                <li>
-                    <a href="#letter">Pesan</a>
-                </li>
-
-                <li>
-                    <a href="#gallery">Kenangan</a>
-                </li>
-
-                <li>
-                    <a href="#story">Cerita</a>
-                </li>
-
-                <li>
-                    <a href="#gift">Kejutan</a>
-                </li>
-
-            </ul>
-
-            <button
-                class="music-btn"
-                onclick="toggleMusic()">
-
-                🎵 Musik
-
-            </button>
-
-        </div>
-
-    </nav>
-
-
-    <!-- =====================================================
-         HERO
-         ===================================================== -->
-
-    <section id="home">
-
-        <div class="hero">
-
-            <div>
-
-                <div class="hero-label">
-                    special birthday for you
-                </div>
-
-                <h2>
-
-                    Happy Birthday,
-
-                    <br>
-
-                    <span>
-                        Sayangku Cintaku 💙
-                    </span>
-
-                </h2>
-
-                <p class="hero-text">
-
-                    hari ini bukan hanya tentang bertambahnya
-                    usia kamu, tapi tentang merayakan betapa
-                    berartinya kamu dalam hidupku.
-
-                </p>
-
-                <div>
-
-                    <a
-                        href="#letter"
-                        class="btn btn-primary">
-
-                        💌 Baca Surat
-
-                    </a>
-
-                    <a
-                        href="#gallery"
-                        class="btn btn-outline">
-
-                        📸 Lihat Kenangan
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <div class="hero-photo-wrap">
-
-                <img
-                    class="hero-photo"
-                    src="assets/foto-utama.jpg"
-                    alt="Foto utama">
-
-                <div class="floating-love">
-                    made with love 💙
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         LETTER
-         ===================================================== -->
-
-    <section id="letter">
-
-        <div class="container">
-
-            <span class="section-label">
-                from my heart
-            </span>
-
-            <h3 class="section-title">
-                Surat Untukmu 💌
-            </h3>
-
-            <p class="section-desc">
-                beberapa hal yang mungkin tidak selalu bisa
-                aku ungkapkan secara langsung.
-            </p>
-
-
-            <div class="letter-wrap">
-
-                <div class="glass-card letter-intro">
-
-                    <div class="big-heart">
-                        💙
-                    </div>
-
-                    <h3>
-                        Untuk seseorang
-                        yang sangat berarti.
-                    </h3>
-
-                    <p style="color:#94a3b8;margin-top:12px;">
-                        semoga setiap kata di halaman ini
-                        bisa membuatmu tersenyum.
-                    </p>
-
-                    <div class="audio-box">
-
-                        <h4>
-                            🎵 Lagu Untukmu
-                        </h4>
-
-                        <p style="color:#94a3b8;font-size:12px;">
-                            putar lagu sambil membaca surat ini.
-                        </p>
-
-                        <audio
-                            id="music"
-                            controls
-                            loop>
-
-                            <source
-                                src="assets/lagu-kita.mp3"
-                                type="audio/mpeg">
-
-                            Browser kamu tidak mendukung audio.
-
-                        </audio>
-
-                    </div>
-
-                </div>
-
-
-                <div class="glass-card letter-content">
-
-                    <p>
-                        happy birthday, sayangku cintaku. 💙
-                    </p>
-
-                    <p>
-                        hari ini adalah hari yang sangat spesial,
-                        karena seseorang yang sangat berarti dalam
-                        hidupku dilahirkan ke dunia.
-                    </p>
-
-                    <p>
-                        terima kasih karena sudah hadir dalam hidupku.
-                        terima kasih untuk setiap senyum, perhatian,
-                        cerita, candaan, dan semua hal kecil yang
-                        mungkin terlihat sederhana tetapi sangat
-                        berarti buat aku.
-                    </p>
-
-                    <p>
-                        di hari ulang tahunmu ini, aku berdoa semoga
-                        kamu selalu diberikan kesehatan, kebahagiaan,
-                        ketenangan hati, dan kemudahan dalam mengejar
-                        semua impianmu.
-                    </p>
-
-                    <p>
-                        semoga semua yang sedang kamu perjuangkan
-                        sekarang bisa menemukan jalan terbaiknya.
-                        kalau suatu saat kamu merasa lelah, semoga
-                        kamu selalu ingat bahwa kamu tidak sendirian.
-                    </p>
-
-                    <p>
-                        aku ingin melihat kamu tumbuh, berkembang,
-                        berhasil mencapai impianmu, dan menjadi versi
-                        terbaik dari dirimu sendiri.
-                    </p>
-
-                    <p>
-                        dan kalau aku boleh meminta satu hal,
-                        semoga di antara banyaknya perjalanan hidup
-                        yang akan kita lalui, aku masih diberikan
-                        kesempatan untuk menjadi bagian dari ceritamu.
-                    </p>
-
-                    <p>
-                        selamat bertambah usia, cintaku.
-                        jangan pernah berhenti tersenyum,
-                        jangan pernah berhenti bermimpi,
-                        dan jangan pernah meragukan betapa
-                        berharganya dirimu.
-                    </p>
-
-                    <p>
-                        aku sayang kamu.
-                        lebih dari yang bisa aku tuliskan
-                        di website ini. 💙
-                    </p>
-
-                    <div class="sign">
-
-                        with love,
-
-                        <br>
-
-                        Muhammad Muiz Fathul Ulum
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         GALLERY
-         ===================================================== -->
-
-    <section id="gallery">
-
-        <div class="container">
-
-            <span class="section-label">
-                our memories
-            </span>
-
-            <h3 class="section-title">
-                Galeri Kenangan 📸
-            </h3>
-
-            <p class="section-desc">
-                klik foto untuk melihatnya lebih besar.
-            </p>
-
-
-            <div class="gallery">
-
-                <!-- FOTO 1 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto1.jpg')">
-
-                    <img
-                        src="assets/foto1.jpg"
-                        alt="Kenangan 1">
-
-                    <div class="caption">
-
-                        <strong>
-                            Momen Kita 💙
-                        </strong>
-
-                        <span>
-                            sebuah kenangan yang selalu ingin
-                            aku simpan.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOTO 2 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto2.jpg')">
-
-                    <img
-                        src="assets/foto2.jpg"
-                        alt="Kenangan 2">
-
-                    <div class="caption">
-
-                        <strong>
-                            Hari yang Indah
-                        </strong>
-
-                        <span>
-                            senyum dan cerita sederhana
-                            yang terasa spesial.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOTO 3 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto3.jpg')">
-
-                    <img
-                        src="assets/foto3.jpg"
-                        alt="Kenangan 3">
-
-                    <div class="caption">
-
-                        <strong>
-                            Kenangan Ketiga
-                        </strong>
-
-                        <span>
-                            satu lagi cerita kecil
-                            yang ingin aku simpan.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOTO 4 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto4.jpg')">
-
-                    <img
-                        src="assets/foto4.jpg"
-                        alt="Kenangan 4">
-
-                    <div class="caption">
-
-                        <strong>
-                            Another Memory
-                        </strong>
-
-                        <span>
-                            cerita kecil yang tidak ingin
-                            dilupakan.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOTO 5 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto5.jpg')">
-
-                    <img
-                        src="assets/foto5.jpg"
-                        alt="Kenangan 5">
-
-                    <div class="caption">
-
-                        <strong>
-                            Our Little Story
-                        </strong>
-
-                        <span>
-                            masih banyak halaman yang
-                            ingin ditulis.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOTO 6 -->
-
-                <div
-                    class="photo-card"
-                    onclick="openPhoto('assets/foto6.jpg')">
-
-                    <img
-                        src="assets/foto6.jpg"
-                        alt="Kenangan 6">
-
-                    <div class="caption">
-
-                        <strong>
-                            To Be Continued...
-                        </strong>
-
-                        <span>
-                            semoga masih banyak momen
-                            berikutnya.
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         PHOTO MODAL
-         ===================================================== -->
-
-    <div
-        class="modal"
-        id="photoModal"
-        onclick="closePhoto()">
-
-        <div
-            class="modal-inner"
-            onclick="event.stopPropagation()">
-
-            <button
-                class="close"
-                onclick="closePhoto()">
-
-                ×
-
-            </button>
+        <div>
 
             <img
-                id="modalImg"
-                src=""
-                alt="Foto besar">
+                src="foto-utama.jpg"
+                class="hero-photo"
+                alt="Foto utama"
+            >
 
         </div>
 
     </div>
 
+</section>
 
-    <!-- =====================================================
-         STORY
-         ===================================================== -->
 
-    <section id="story">
+<!-- SURAT -->
+<section id="surat">
 
-        <div class="container">
+    <div class="container">
 
-            <span class="section-label">
-                our little story
-            </span>
+        <div class="section-head">
 
-            <h3 class="section-title">
-                Cerita Kita 💙
-            </h3>
+            <small>
+                from my heart
+            </small>
 
-            <p class="section-desc">
-                setiap hubungan punya cerita yang layak
-                untuk diingat.
+            <h2>
+                Surat Untukmu 💌
+            </h2>
+
+            <p>
+                beberapa hal yang ingin aku sampaikan untuk kamu.
             </p>
 
+        </div>
 
-            <div class="timeline">
 
-                <div class="timeline-item">
+        <div class="card letter">
 
-                    <div class="dot"></div>
+            <p>
+                happy birthday, sayangku cintaku. 💙
+            </p>
 
-                    <div class="timeline-card">
+            <p>
+                hari ini adalah hari yang sangat spesial,
+                karena seseorang yang sangat berarti dalam hidupku
+                dilahirkan ke dunia.
+            </p>
 
-                        <small>
-                            Awal
-                        </small>
+            <p>
+                terima kasih karena sudah hadir dalam hidupku.
+                terima kasih untuk setiap senyum, perhatian,
+                cerita, candaan, dan semua hal kecil yang
+                mungkin terlihat sederhana tetapi sangat berarti buat aku.
+            </p>
 
-                        <h4>
-                            Pertama Kali Bertemu
-                        </h4>
+            <p>
+                di hari ulang tahunmu ini,
+                aku berdoa semoga kamu selalu diberikan kesehatan,
+                kebahagiaan, ketenangan hati,
+                dan kemudahan dalam mengejar semua impianmu.
+            </p>
 
-                        <p>
-                            awal dari sebuah cerita yang ternyata
-                            menjadi sesuatu yang sangat berarti.
-                        </p>
+            <p>
+                semoga semua yang sedang kamu perjuangkan
+                sekarang bisa menemukan jalan terbaiknya.
+                kalau suatu saat kamu merasa lelah,
+                semoga kamu selalu ingat bahwa kamu tidak sendirian.
+            </p>
 
-                    </div>
+            <p>
+                aku ingin melihat kamu tumbuh,
+                berkembang, berhasil mencapai impianmu,
+                dan menjadi versi terbaik dari dirimu sendiri.
+            </p>
+
+            <p>
+                semoga di antara banyaknya perjalanan hidup
+                yang akan kita lalui, aku masih diberikan kesempatan
+                untuk menjadi bagian dari ceritamu.
+            </p>
+
+            <p>
+                selamat bertambah usia, cintaku.
+                jangan pernah berhenti tersenyum,
+                jangan pernah berhenti bermimpi,
+                dan jangan pernah meragukan betapa berharganya dirimu.
+            </p>
+
+            <p>
+                aku sayang kamu. 💙
+            </p>
+
+            <div class="sign">
+                with love,
+                <br>
+                Muhammad Muiz Fathul Ulum
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MUSIK -->
+<section>
+
+    <div class="container">
+
+        <div class="card music-card">
+
+            <h2>
+                🎵 Lagu Untukmu
+            </h2>
+
+            <p>
+                tekan tombol play untuk mendengarkan lagu kita.
+            </p>
+
+            <audio controls loop>
+
+                <source
+                    src="lagu-kita.mp3"
+                    type="audio/mpeg"
+                >
+
+                Browser kamu tidak mendukung audio.
+
+            </audio>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- GALLERY -->
+<section id="gallery">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <small>
+                our memories
+            </small>
+
+            <h2>
+                Galeri Kenangan 📸
+            </h2>
+
+            <p>
+                enam foto yang menyimpan cerita kita.
+            </p>
+
+        </div>
+
+
+        <div class="gallery">
+
+
+            <div class="gallery-item"
+                 onclick="openPhoto('foto1.jpg')">
+
+                <img
+                    src="foto1.jpg"
+                    alt="Foto 1"
+                >
+
+                <div class="gallery-text">
+
+                    <strong>
+                        Momen Kita 💙
+                    </strong>
+
+                    <span>
+                        sebuah kenangan yang selalu ingin aku simpan.
+                    </span>
 
                 </div>
 
-
-                <div class="timeline-item">
-
-                    <div class="dot"></div>
-
-                    <div class="timeline-card">
-
-                        <small>
-                            Momen
-                        </small>
-
-                        <h4>
-                            Mulai Banyak Cerita
-                        </h4>
-
-                        <p>
-                            dari obrolan sederhana sampai cerita
-                            yang tidak pernah habis.
-                        </p>
-
-                    </div>
-
-                </div>
+            </div>
 
 
-                <div class="timeline-item">
+            <div class="gallery-item"
+                 onclick="openPhoto('foto2.jpg')">
 
-                    <div class="dot"></div>
+                <img
+                    src="foto2.jpg"
+                    alt="Foto 2"
+                >
 
-                    <div class="timeline-card">
+                <div class="gallery-text">
 
-                        <small>
-                            Kenangan
-                        </small>
+                    <strong>
+                        Hari yang Indah
+                    </strong>
 
-                        <h4>
-                            Banyak Hal Kita Lewati
-                        </h4>
-
-                        <p>
-                            ada tawa, ada cerita, ada hari yang mudah,
-                            dan ada hari yang sulit.
-                        </p>
-
-                    </div>
+                    <span>
+                        senyum dan cerita sederhana yang terasa spesial.
+                    </span>
 
                 </div>
 
+            </div>
 
-                <div class="timeline-item">
 
-                    <div class="dot"></div>
+            <div class="gallery-item"
+                 onclick="openPhoto('foto3.jpg')">
 
-                    <div class="timeline-card">
+                <img
+                    src="foto3.jpg"
+                    alt="Foto 3"
+                >
 
-                        <small>
-                            Sekarang
-                        </small>
+                <div class="gallery-text">
 
-                        <h4>
-                            Masih Bersama
-                        </h4>
+                    <strong>
+                        Kenangan Kita
+                    </strong>
 
-                        <p>
-                            dan semoga cerita ini belum selesai,
-                            karena masih banyak halaman yang ingin
-                            kita tulis bersama.
-                        </p>
+                    <span>
+                        salah satu momen yang ingin selalu dikenang.
+                    </span>
 
-                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item"
+                 onclick="openPhoto('foto4.jpg')">
+
+                <img
+                    src="foto4.jpg"
+                    alt="Foto 4"
+                >
+
+                <div class="gallery-text">
+
+                    <strong>
+                        Another Memory
+                    </strong>
+
+                    <span>
+                        cerita kecil yang tidak ingin dilupakan.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item"
+                 onclick="openPhoto('foto5.jpg')">
+
+                <img
+                    src="foto5.jpg"
+                    alt="Foto 5"
+                >
+
+                <div class="gallery-text">
+
+                    <strong>
+                        Our Little Story
+                    </strong>
+
+                    <span>
+                        masih banyak halaman yang ingin ditulis.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item"
+                 onclick="openPhoto('foto6.jpg')">
+
+                <img
+                    src="foto6.jpg"
+                    alt="Foto 6"
+                >
+
+                <div class="gallery-text">
+
+                    <strong>
+                        To Be Continued...
+                    </strong>
+
+                    <span>
+                        semoga masih banyak momen berikutnya.
+                    </span>
 
                 </div>
 
@@ -1532,529 +759,393 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =====================================================
-         COUNTDOWN
-         ===================================================== -->
+<!-- MODAL FOTO -->
+<div
+    class="modal"
+    id="photoModal"
+    onclick="closePhoto()"
+>
 
-    <section>
+    <button
+        class="close"
+        onclick="closePhoto()"
+    >
+        ×
+    </button>
 
-        <div class="container">
+    <img
+        id="modalImage"
+        src=""
+        alt="Foto besar"
+    >
 
-            <div style="text-align:center;">
+</div>
 
-                <span class="section-label">
-                    special moment
-                </span>
 
-                <h3 class="section-title">
-                    Menuju Hari Spesial 🎂
+<!-- CERITA -->
+<section id="cerita">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <small>
+                our little story
+            </small>
+
+            <h2>
+                Cerita Kita 💙
+            </h2>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item">
+
+                <h3>
+                    🌱 Awal
                 </h3>
 
-                <p class="section-desc" style="margin-left:auto;margin-right:auto;">
-                    countdown menuju tanggal ulang tahun:
-                    <strong style="color:white;">
-                        09 Agustus 2026
-                    </strong>
+                <p>
+                    awal dari sebuah cerita yang ternyata
+                    menjadi sesuatu yang sangat berarti.
                 </p>
 
             </div>
 
 
-            <div class="countdown">
+            <div class="timeline-item">
 
-                <div class="count-box">
+                <h3>
+                    💬 Mulai Banyak Cerita
+                </h3>
 
-                    <strong id="days">
-                        00
-                    </strong>
-
-                    <span>
-                        Hari
-                    </span>
-
-                </div>
-
-
-                <div class="count-box">
-
-                    <strong id="hours">
-                        00
-                    </strong>
-
-                    <span>
-                        Jam
-                    </span>
-
-                </div>
-
-
-                <div class="count-box">
-
-                    <strong id="minutes">
-                        00
-                    </strong>
-
-                    <span>
-                        Menit
-                    </span>
-
-                </div>
-
-
-                <div class="count-box">
-
-                    <strong id="seconds">
-                        00
-                    </strong>
-
-                    <span>
-                        Detik
-                    </span>
-
-                </div>
+                <p>
+                    dari obrolan sederhana sampai cerita
+                    yang tidak pernah habis.
+                </p>
 
             </div>
 
-            <div id="birthdayMessage">
-                🎂 Happy Birthday, Sayangku! 💙
+
+            <div class="timeline-item">
+
+                <h3>
+                    💙 Banyak Kenangan
+                </h3>
+
+                <p>
+                    ada tawa, ada cerita, ada hari yang mudah,
+                    dan ada hari yang sulit.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <h3>
+                    ♾️ Sekarang
+                </h3>
+
+                <p>
+                    semoga cerita ini belum selesai,
+                    karena masih banyak halaman yang ingin
+                    kita tulis bersama.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COUNTDOWN -->
+<section>
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <small>
+                special moment
+            </small>
+
+            <h2>
+                Countdown 🎂
+            </h2>
+
+            <p>
+                menuju ulang tahun 09 Agustus 2026.
+            </p>
+
+        </div>
+
+
+        <div class="countdown">
+
+            <div class="count-box">
+
+                <strong id="days">
+                    00
+                </strong>
+
+                <span>
+                    Hari
+                </span>
+
+            </div>
+
+
+            <div class="count-box">
+
+                <strong id="hours">
+                    00
+                </strong>
+
+                <span>
+                    Jam
+                </span>
+
+            </div>
+
+
+            <div class="count-box">
+
+                <strong id="minutes">
+                    00
+                </strong>
+
+                <span>
+                    Menit
+                </span>
+
+            </div>
+
+
+            <div class="count-box">
+
+                <strong id="seconds">
+                    00
+                </strong>
+
+                <span>
+                    Detik
+                </span>
+
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =====================================================
-         GIFT
-         ===================================================== -->
+<!-- KEJUTAN -->
+<section id="kejutan">
 
-    <section id="gift">
+    <div class="container">
 
-        <div class="container gift-area">
+        <div class="section-head">
 
-            <span class="section-label">
+            <small>
                 one last surprise
-            </span>
+            </small>
 
-            <h3 class="section-title">
+            <h2>
                 Aku Punya Sesuatu Untukmu 🎁
-            </h3>
+            </h2>
 
-            <p class="section-desc" style="margin-left:auto;margin-right:auto;">
-                jangan cuma dilihat...
-                coba buka hadiahnya.
+            <p>
+                coba tekan hadiahnya.
             </p>
 
+        </div>
 
-            <div
-                class="gift-box"
-                onclick="openGift()">
 
-                <div class="bow"></div>
+        <div class="gift">
 
-                <div class="gift-lid"></div>
-
-                <div class="gift-body"></div>
-
-                <div class="gift-ribbon-v"></div>
-
-                <div class="gift-ribbon-h"></div>
-
-            </div>
+            <button
+                class="gift-button"
+                onclick="openGift()"
+            >
+                🎁
+            </button>
 
 
             <div
-                class="surprise"
-                id="surprise">
+                class="card surprise"
+                id="surprise"
+            >
 
-                <h4 style="font-size:22px;margin-bottom:15px;">
+                <h2>
                     💙 Surprise!
-                </h4>
+                </h2>
 
-                <p style="color:#cbd5e1;margin-bottom:15px;">
-                    kalau suatu hari kamu merasa dunia sedang
-                    tidak baik-baik saja, buka lagi website ini
-                    dan ingat bahwa ada seseorang yang selalu
-                    percaya sama kamu.
+                <p>
+                    kalau suatu hari kamu merasa dunia
+                    sedang tidak baik-baik saja,
+                    buka lagi website ini dan ingat bahwa
+                    ada seseorang yang selalu percaya sama kamu.
                 </p>
 
-                <p style="color:#cbd5e1;margin-bottom:15px;">
+                <p>
                     seseorang yang ingin melihat kamu bahagia,
-                    berhasil mencapai impianmu, dan terus
-                    tersenyum.
+                    berhasil mencapai impianmu,
+                    dan terus tersenyum.
                 </p>
 
-                <p style="color:#cbd5e1;margin-bottom:15px;">
-                    aku tidak bisa menjanjikan bahwa semuanya
-                    akan selalu mudah, tapi aku ingin selalu
-                    memberikan dukungan ketika semuanya
-                    terasa sulit.
+                <p>
+                    aku tidak bisa menjanjikan semuanya
+                    akan selalu mudah, tapi aku ingin
+                    selalu memberikan dukungan ketika
+                    semuanya terasa sulit.
                 </p>
 
                 <p class="love">
-
                     aku sayang kamu. 💙
-
                     <br>
-
                     hari ini, besok, dan semoga sampai nanti.
-
                 </p>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
-
-    <footer>
-
-        <p>
-            Dibuat dengan ❤️ khusus untukmu
-        </p>
-
-        <p style="margin-top:7px;">
-            <strong>
-                Muhammad Muiz Fathul Ulum
-            </strong>
-        </p>
-
-        <p style="font-size:11px;margin-top:12px;">
-            © 2026 — for someone special 💙
-        </p>
-
-    </footer>
+<footer>
+    made with love 💙
+    <br>
+    09.08.2026
+</footer>
 
 
-    <!-- =====================================================
-         QR CODE LIBRARY
-         ===================================================== -->
+<script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+/* COUNTDOWN */
 
+function updateCountdown() {
 
-    <script>
+    const target =
+        new Date(2026, 7, 9, 0, 0, 0).getTime();
 
-        /* =====================================================
-           GITHUB PAGES URL
-           ===================================================== */
+    const now =
+        new Date().getTime();
 
-        const websiteURL =
-            "https://mmuizfathululum-ai.github.io/ulang-tahun/";
+    let distance =
+        target - now;
 
+    if (distance < 0) {
+        distance = 0;
+    }
 
-        /* =====================================================
-           QR CODE
-           QR INI HANYA UNTUK DI-SCAN
-           ===================================================== */
+    const days =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
 
-        new QRCode(
-            document.getElementById("qrcode"),
-            {
-                text: websiteURL + "?open=love",
-                width: 190,
-                height: 190,
-                colorDark: "#0f172a",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            }
+    const hours =
+        Math.floor(
+            (distance % (1000 * 60 * 60 * 24))
+            / (1000 * 60 * 60)
+        );
+
+    const minutes =
+        Math.floor(
+            (distance % (1000 * 60 * 60))
+            / (1000 * 60)
+        );
+
+    const seconds =
+        Math.floor(
+            (distance % (1000 * 60))
+            / 1000
         );
 
 
-        /* =====================================================
-           LOVE GATE
-           HANYA TERBUKA JIKA URL MEMILIKI ?open=love
-           ===================================================== */
+    document.getElementById("days").innerText =
+        String(days).padStart(2, "0");
 
-        const params =
-            new URLSearchParams(window.location.search);
+    document.getElementById("hours").innerText =
+        String(hours).padStart(2, "0");
 
-        const loveGate =
-            document.getElementById("loveGate");
+    document.getElementById("minutes").innerText =
+        String(minutes).padStart(2, "0");
 
-        if (params.get("open") === "love") {
-
-            setTimeout(function() {
-
-                loveGate.classList.add("hidden");
-
-            }, 700);
-
-        }
+    document.getElementById("seconds").innerText =
+        String(seconds).padStart(2, "0");
+}
 
 
-        /* =====================================================
-           MUSIC
-           ===================================================== */
+setInterval(updateCountdown, 1000);
 
-        const music =
-            document.getElementById("music");
-
-        function toggleMusic() {
-
-            if (music.paused) {
-
-                music.play().catch(function() {
-
-                    alert(
-                        "Silakan tekan tombol play pada pemutar musik terlebih dahulu 🎵"
-                    );
-
-                });
-
-            } else {
-
-                music.pause();
-
-            }
-
-        }
+updateCountdown();
 
 
-        /* =====================================================
-           COUNTDOWN
-           TARGET: 09 AGUSTUS 2026
-           ===================================================== */
+/* KEJUTAN */
 
-        const birthday =
-            new Date("2026-08-09T00:00:00+07:00").getTime();
+function openGift() {
 
+    const surprise =
+        document.getElementById("surprise");
 
-        function updateCountdown() {
+    surprise.classList.toggle("show");
 
-            const now =
-                new Date().getTime();
-
-            const distance =
-                birthday - now;
+}
 
 
-            if (distance <= 0) {
+/* FOTO BESAR */
 
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
+function openPhoto(photo) {
 
-                document.getElementById(
-                    "birthdayMessage"
-                ).style.display = "block";
+    document.getElementById("modalImage").src =
+        photo;
 
-                return;
+    document.getElementById("photoModal")
+        .classList.add("show");
 
-            }
+}
 
 
-            const days =
-                Math.floor(
-                    distance /
-                    (1000 * 60 * 60 * 24)
-                );
+function closePhoto() {
 
-            const hours =
-                Math.floor(
-                    (distance %
-                    (1000 * 60 * 60 * 24)) /
-                    (1000 * 60 * 60)
-                );
+    document.getElementById("photoModal")
+        .classList.remove("show");
 
-            const minutes =
-                Math.floor(
-                    (distance %
-                    (1000 * 60 * 60)) /
-                    (1000 * 60)
-                );
-
-            const seconds =
-                Math.floor(
-                    (distance %
-                    (1000 * 60)) /
-                    1000
-                );
+}
 
 
-            document.getElementById("days").innerText =
-                String(days).padStart(2, "0");
+/* TUTUP FOTO DENGAN ESC */
 
-            document.getElementById("hours").innerText =
-                String(hours).padStart(2, "0");
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-            document.getElementById("minutes").innerText =
-                String(minutes).padStart(2, "0");
+        if (event.key === "Escape") {
 
-            document.getElementById("seconds").innerText =
-                String(seconds).padStart(2, "0");
+            closePhoto();
 
         }
 
+    }
+);
 
-        updateCountdown();
-
-        setInterval(
-            updateCountdown,
-            1000
-        );
-
-
-        /* =====================================================
-           GALLERY MODAL
-           ===================================================== */
-
-        function openPhoto(src) {
-
-            const modal =
-                document.getElementById("photoModal");
-
-            const image =
-                document.getElementById("modalImg");
-
-            image.src = src;
-
-            modal.classList.add("show");
-
-            document.body.style.overflow = "hidden";
-
-        }
-
-
-        function closePhoto() {
-
-            const modal =
-                document.getElementById("photoModal");
-
-            modal.classList.remove("show");
-
-            document.body.style.overflow = "";
-
-        }
-
-
-        /* =====================================================
-           GIFT SURPRISE
-           ===================================================== */
-
-        function openGift() {
-
-            const surprise =
-                document.getElementById("surprise");
-
-            surprise.classList.toggle("show");
-
-            createHearts(25);
-
-            if (
-                surprise.classList.contains("show")
-            ) {
-
-                setTimeout(function() {
-
-                    surprise.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                }, 200);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           FLOATING HEARTS
-           ===================================================== */
-
-        function createHeart() {
-
-            const heart =
-                document.createElement("div");
-
-            heart.className = "heart";
-
-            const hearts = [
-                "💙",
-                "♡",
-                "♥",
-                "✨"
-            ];
-
-            heart.innerText =
-                hearts[
-                    Math.floor(
-                        Math.random() * hearts.length
-                    )
-                ];
-
-            heart.style.left =
-                Math.random() * 100 + "vw";
-
-            heart.style.fontSize =
-                (12 + Math.random() * 18) + "px";
-
-            heart.style.animationDuration =
-                (4 + Math.random() * 5) + "s";
-
-            document.body.appendChild(heart);
-
-            setTimeout(function() {
-
-                heart.remove();
-
-            }, 9000);
-
-        }
-
-
-        setInterval(
-            createHeart,
-            1800
-        );
-
-
-        function createHearts(number) {
-
-            for (
-                let i = 0;
-                i < number;
-                i++
-            ) {
-
-                setTimeout(
-                    createHeart,
-                    i * 80
-                );
-
-            }
-
-        }
-
-
-        /* =====================================================
-           ESC UNTUK MENUTUP FOTO
-           ===================================================== */
-
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key === "Escape") {
-
-                    closePhoto();
-
-                }
-
-            }
-        );
-
-    </script>
+</script>
 
 </body>
 </html>
